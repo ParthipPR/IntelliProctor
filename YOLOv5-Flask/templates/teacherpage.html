@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher's Page</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='style.css')}}">
+</head>
+<body>
+    <div class="container">
+        <h1>Teacher's Portal</h1>
+        <h2>Student Data</h2>
+        {% if students|length < 1 %}
+        <h2> There is no student data. Create one below </h2>
+    
+        {% else %}
+        <table id="studentTable">
+            <thead>
+                <tr>
+                    <th>ROLL NO</th>
+                    <th>NAME</th>
+                    <th>PASSWORD</th>
+                    <th>GENDER</th>
+                    <th>MALPRACTICE</th>
+                    <th>ACTIONS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student.rollno }}</td>
+                    <td>{{ student.name }}</td>
+                    <td>{{ student.password }}</td>
+                    <td>{{ student.gender }}</td>
+                    <td>{{ student.malpractice }}</td>
+                    <td>
+                        <a href = "/update/{{student.rollno}}" class="updateBtn">Update</a>
+                        <a href = "/delete/{{student.rollno}}" class="deleteBtn">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% endif %}
+
+
+        <h3>Add New Student</h3>
+        <form id="addStudentForm" action="/add" method="post">
+            <input type="text" name="rollno" placeholder="Roll No" required>
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <select name="gender">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+            </select>
+            <button type="submit">Add Student</button>
+        </form>
+    </div>
+</body>
+</html>

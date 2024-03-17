@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+    <title>Exam page</title>
+{% endblock %}
+
+{% block body %} 
+
+<div class="wrapper">
+  <div class="container">
+    <h1>Student's Exam Portal</h1>
+    
+    <!-- Add some space between buttons -->
+    <div style="margin-top: 10px;"></div>
+    
+    <button onclick="location.href='/'">
+      Stop Exam
+    </button>
+    
+    <!-- Add the question paper here -->
+<div class="question-paper">
+  <h2>Question Paper</h2>
+  
+  <h3>Question 1:</h3>
+  <p>What is the capital of France?</p>
+  <ul>
+    <li>a) Paris</li>
+    <li>b) London</li>
+    <li>c) Berlin</li>
+    <li>d) Rome</li>
+  </ul>
+  
+  <h3>Question 2:</h3>
+  <p>Who wrote "Romeo and Juliet"?</p>
+  <ul>
+    <li>a) William Shakespeare</li>
+    <li>b) Charles Dickens</li>
+    <li>c) Jane Austen</li>
+    <li>d) Mark Twain</li>
+  </ul>
+  
+  <!-- Add more questions as needed -->
+</div>
+
+  </div>
+</div>
+
+{% endblock %}
