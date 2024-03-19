@@ -110,12 +110,29 @@ def update(rollno):
     else:
         return render_template ('update.html', student = student)
 
+process = None
+
 @app.route("/opencam", methods=['GET'])
 def opencam():
-    print("here")
-    subprocess.run(['python3', 'detect_test.py', '--source', '0'])
-    return "done"
-    
+    global process
+    print("Opening camera...")
+    if process is None or process.poll() is not None:
+        process = subprocess.Popen(['python3', 'detect_test.py', '--source', '0'])
+        print("Camera opened successfully")
+    else:
+        print("Camera is already open")
+    return redirect('/exampage')
+
+@app.route("/closecam", methods=['GET'])
+def closecam():
+    global process
+    print("Closing camera...")
+    if process and process.poll() is None:
+        process.terminate()
+        print("Camera closed successfully")
+    else:
+        print("No camera is currently open")
+    return redirect('/')
         
 if __name__ == "__main__":
     app.run(debug = False)  
