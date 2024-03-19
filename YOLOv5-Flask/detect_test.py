@@ -11,6 +11,8 @@ from utils.datasets import LoadStreams, LoadImages
 from utils.general import check_img_size, check_requirements, colorstr, non_max_suppression, apply_classifier, scale_coords, xyxy2xywh, strip_optimizer, set_logging, increment_path, save_one_box
 from utils.torch_utils import select_device, load_classifier, time_sync
 
+from app import app, db, studentdb
+
 # Function to run YOLOv5 inference
 @torch.no_grad()
 def run(weights='yolov5s.pt',
@@ -36,7 +38,8 @@ def run(weights='yolov5s.pt',
         line_thickness=3,
         hide_labels=False,
         hide_conf=False,
-        half=False):
+        half=False,
+        rollno=1):
     
     save_img = not nosave and not source.endswith('.txt')
     webcam = source.isnumeric() or source.endswith('.txt') or source.lower().startswith(
@@ -132,9 +135,12 @@ def run(weights='yolov5s.pt',
                 for *xyxy, conf, cls in reversed(det):
                     # Find the index for the 'cell phone' class in the names list
                     cell_phone_class_index = names.index(cell_phone_class_name) if cell_phone_class_name in names else None
+                    student = studentdb.query.filter_by(rollno=rollno).first()
 
                     if cls == cell_phone_class_index:
                         print("cell phone detected!" + str(no))
+                        student.malpractice = True
+                        db.session.commit()
                         no = no+1
                     if save_txt:
                         xywh = (xyxy2xywh(torch.tensor(xyxy).view(1, 4)) / gn).view(-1).tolist()
@@ -195,6 +201,7 @@ def parse_opt():
     parser.add_argument('--hide-labels', default=False, action='store_true', help='hide labels')
     parser.add_argument('--hide-conf', default=False, action='store_true', help='hide confidences')
     parser.add_argument('--half', action='store_true', help='use FP16 half-precision inference')
+    parser.add_argument('--rollno',type=int,default=1)
     opt = parser.parse_args()
     return opt
 
@@ -206,5 +213,6 @@ def main(opt):
 
 # Script entry point
 if __name__ == "__main__":
-    opt = parse_opt()
-    main(opt)
+    with app.app_context():
+        opt = parse_opt()
+        main(opt)
