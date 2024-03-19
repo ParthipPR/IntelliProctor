@@ -24,7 +24,7 @@ def teacherpage():
     students = studentdb.query.order_by(studentdb.rollno).all()
     return render_template('teacherpage.html', students = students)
 
-@app.route('/exampage')
+@app.route('/exampage',methods=['POST','GET'])
 def studentpage():
     return render_template('Exampage.html')
 
@@ -38,7 +38,7 @@ def stu_login():
         if student:
             if password == student.password:
                 # Password is correct, redirect to exam page
-                return redirect('/exampage')
+                return render_template('Exampage.html', rollno = rollno)
             else:
                 # Password is incorrect, flash error message and redirect back to login page
                 flash("Incorrect password. Please try again.", "error")
@@ -112,12 +112,12 @@ def update(rollno):
 
 process = None
 
-@app.route("/opencam", methods=['GET'])
-def opencam():
+@app.route("/opencam/<int:rollno>", methods=['GET'])
+def opencam(rollno):
     global process
     print("Opening camera...")
     if process is None or process.poll() is not None:
-        process = subprocess.Popen(['python3', 'detect_test.py', '--source', '0'])
+        process = subprocess.Popen(['python3', 'detect_test.py', '--source', '0', '--rollno',str(rollno)])
         print("Camera opened successfully")
     else:
         print("Camera is already open")
