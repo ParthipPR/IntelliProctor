@@ -17,7 +17,7 @@ class studentdb(db.Model):
 
 @app.route("/")
 def index():
-    return render_template('login.html')
+    return render_template('login_improved.html')
 
 @app.route("/teacherpage")
 def teacherpage():
