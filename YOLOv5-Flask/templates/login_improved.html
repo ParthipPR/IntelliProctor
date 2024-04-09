@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+    <title>Login Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS can be added here */
+        body {
+            background-color: #ffffff; /* Light background color */
+            color: #343a40; /* Text color */
+        }
+        .center-tabs {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+        .navbar {
+            background-color: #3d3c3c !important; /* Navbar background color */
+            height: 80px; /* Larger navbar height */
+        }
+        .navbar-brand {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            text-align: center;
+            margin: auto;
+            color: #ffffff; /* Navbar title text color */
+        }
+        .navbar-brand h1 {
+            font-size: 5rem; /* Larger font size for the title */
+        }
+        .nav-link {
+            color: #343a40 !important; /* Tab text color */
+        }
+        .nav-link.active {
+            background-color: #f8f9fa !important; /* Active tab background color */
+        }
+        .card {
+            background-color: #f8f9fa; /* Card background color */
+            color: #343a40; /* Card text color */
+        }
+        .card-header {
+            background-color: #ffffff; /* Card header background color */
+        }
+        .btn-primary {
+            background-color: #3d3c3c; /* Button background color */
+            border-color: #3d3c3c; /* Button border color */
+            color: #ffffff; /* Button text color */
+        }
+        .btn-primary:hover {
+            background-color: #242323; /* Button hover background color */
+            border-color: #242323; /* Button hover border color */
+        }
+    </style>
+{% endblock %}
+
+{% block body %} 
+    <div class="wrapper">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+              <span class="navbar-brand mb-0 h1">Inteliproctor</span>
+            </div>
+        </nav>
+        <div class="container center-tabs">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link active" data-toggle="tab" href="#studentTab">Student</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" href="#teacherTab">Teacher</a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="container">
+            <div class="tab-content">
+                <div id="studentTab" class="tab-pane fade show active">
+                    <div class="card border-primary mb-3">
+                        <div class="card-header">
+                            <h3 class="card-title">Student</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="/studentlogin" method="POST">
+                                {% with messages = get_flashed_messages(with_categories=true) %}
+                                    {% if messages %}
+                                        {% for category, message in messages %}
+                                            <div class="alert alert-{{ category }}" role="alert">{{ message }}</div>
+                                        {% endfor %}
+                                    {% endif %}
+                                {% endwith %}
+                                <div class="form-group">
+                                    <label for="login_username">Roll Number</label>
+                                    <input type="text" class="form-control" id="login_username" name="rollno" placeholder="Enter Roll Number">
+                                </div>
+                                <div class="form-group">
+                                    <label for="login_password">Password</label>
+                                    <input type="password" class="form-control" id="login_password" name="password" placeholder="Enter Password">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="teacherTab" class="tab-pane fade">
+                    <div class="card border-primary mb-3">
+                        <div class="card-header">
+                            <h3 class="card-title">Teacher</h3>
+                        </div>
+                        <div class="card-body">
+                            <form action="/teacherlogin" method="POST">
+                                {% if error %}
+                                    <div class="alert alert-danger" role="alert">Error: {{ error }}</div>
+                                {% endif %}
+                                <div class="form-group">
+                                    <label for="login_username">Username</label>
+                                    <input type="text" class="form-control" id="login_username" name="username" placeholder="Enter Username">
+                                </div>
+                                <div class="form-group">
+                                    <label for="login_password">Password</label>
+                                    <input type="password" class="form-control" id="login_password" name="password" placeholder="Enter Password">
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+{% endblock %}
