@@ -1,53 +1,79 @@
 {% extends 'base.html' %}
 
 {% block head %} 
-    <title>Exam page</title>
+    <title>Exam Page</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS can be added here */
+        body {
+            background-color: #ffffff; /* Light background color */
+            color: #343a40; /* Text color */
+        }
+        .container {
+            padding: 20px;
+            max-width: 600px;
+        }
+        .question-paper {
+            margin-top: 20px;
+            text-align: left;
+        }
+        .question-paper h2 {
+            margin-bottom: 10px;
+        }
+        .question-paper h3 {
+            margin-top: 20px;
+        }
+        .question-paper p {
+            margin-bottom: 10px;
+        }
+        .question-paper ul {
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+        .question-paper li {
+            list-style-type: none;
+            margin-bottom: 5px;
+        }
+        .navbar {
+            background-color: #343a40 !important; /* Navbar background color */
+            height: 80px; /* Larger navbar height */
+        }
+        .navbar-brand {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            text-align: center;
+            margin: auto;
+            color: #ffffff; /* Navbar title text color */
+        }
+    </style>
 {% endblock %}
 
 {% block body %} 
+<nav class="navbar navbar-expand-lg">
+  <span class="navbar-brand h1">Student's Exam Portal</span>
+</nav>
 
-<div class="wrapper">
-  <div class="container">
-    <h1>Student's Exam Portal</h1>
-    
+<div class="container text-center">
     <!-- Add some space between buttons -->
-    <div style="margin-top: 10px;"></div>
+    <div class="my-3"></div>
     
-
-    <button onclick="location.href='/opencam/{{ rollno }}'">
-      Start Exam for roll no:{{ rollno }}
-    </button>
-    <br>
-    <button onclick="location.href='/closecam'">
+   
+    <button class="btn btn-secondary" onclick="location.href='/closecam'">
       Stop Exam
     </button>
-    
-    <!-- Add the question paper here -->
+   <!-- Add the question paper here -->
 <div class="question-paper">
-  <h2>Question Paper</h2>
-  
-  <h3>Question 1:</h3>
-  <p>What is the capital of France?</p>
-  <ul>
-    <li>a) Paris</li>
-    <li>b) London</li>
-    <li>c) Berlin</li>
-    <li>d) Rome</li>
-  </ul>
-  
-  <h3>Question 2:</h3>
-  <p>Who wrote "Romeo and Juliet"?</p>
-  <ul>
-    <li>a) William Shakespeare</li>
-    <li>b) Charles Dickens</li>
-    <li>c) Jane Austen</li>
-    <li>d) Mark Twain</li>
-  </ul>
-  
-  <!-- Add more questions as needed -->
+    <h2>Question Paper</h2>
+
+    <form id="addQuestionForm" method="POST" action="/submit_answers/{{ rollno }}">
+        {% for question in questions %}
+        <p>{{ question.question }}</p>
+        <input type="text" name="answer" placeholder="Answer" required>
+        {% endfor %}
+        <button type="submit">Submit Answer</button>
+    </form>
 </div>
 
-  </div>
 </div>
-
 {% endblock %}

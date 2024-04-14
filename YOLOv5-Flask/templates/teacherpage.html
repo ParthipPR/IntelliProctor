@@ -22,6 +22,7 @@
                     <th>PASSWORD</th>
                     <th>GENDER</th>
                     <th>MALPRACTICE</th>
+                    <th>SCORE</th>
                     <th>ACTIONS</th>
                 </tr>
             </thead>
@@ -33,6 +34,7 @@
                     <td>{{ student.password }}</td>
                     <td>{{ student.gender }}</td>
                     <td>{{ student.malpractice }}</td>
+                    <td>{{ student.score }}</td>
                     <td>
                         <a href = "/update/{{student.rollno}}" class="updateBtn">Update</a>
                         <a href = "/delete/{{student.rollno}}" class="deleteBtn">Delete</a>
@@ -56,6 +58,46 @@
             </select>
             <button type="submit">Add Student</button>
         </form>
+
+
+        <!-- Divider -->
+        <hr style="margin-top: 50px; margin-bottom: 50px;">
+
+        <!-- Questions/Answers Section -->
+        <h2>QUESTIONS/ANSWERS</h2>
+        <table id="questionTable">
+            <thead>
+                <tr>
+                    <th>QUESTION</th>
+                    <th>ANSWER</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for question in questions %}
+                <tr>
+                    <td>{{ question.question }}</td>
+                    <td>{{ question.answer }}</td>
+                    <td>
+                        <a href = "/delete_question/{{question.qno}}" class="deleteBtn">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h3>Add New Question</h3>
+        <form id="addQuestionForm" action="/add_question" method="post">
+            <input type="text" name="QUESTION" placeholder="QUESTION" required>
+            <input type="text" name="ANSWER" placeholder="ANSWER" required>
+            <button type="submit">Add Question</button>
+        </form>
+
+        <!-- Divider -->
+        <hr style="margin-top: 50px; margin-bottom: 50px;">
+
+
+        <a href = "/" class="updateBtn">Logout</a>
+
     </div>
 </body>
 </html>

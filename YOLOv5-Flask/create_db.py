@@ -10,11 +10,12 @@ if __name__ == "__main__":
 
         # Create a test instance of the studentdb model
         test_student = studentdb(
-            rollno=2,
+            rollno=1,
             name="rose",
             password="password",
             gender="Female",
-            malpractice=False
+            malpractice=False,
+            score = 50
         )
 
         # Add the test student to the session

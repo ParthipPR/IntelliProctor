@@ -2,21 +2,21 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 20px;
-    background: #e9eff1;
-    color: #333;
+    background: #ffffff; /* Light background color */
+    color: #343a40; /* Text color */
 }
 
 .container {
     max-width: 900px;
     margin: 20px auto;
     padding: 20px;
-    background: white;
+    background: #ffffff; /* White background color */
     border-radius: 10px;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
 h1, h2, h3 {
-    color: #007bff;
+    color: #007bff; /* Primary color */
 }
 
 table {
@@ -35,12 +35,12 @@ th, td {
 }
 
 th {
-    background-color: #007bff;
+    background-color: #007bff; /* Primary color */
     color: white;
 }
 
 tr:nth-child(even) {
-    background-color: #f2f2f2;
+    background-color: #f8f9fa; /* Light background color */
 }
 
 form {
@@ -53,18 +53,18 @@ form {
 input[type="text"], input[type="password"], select, button {
     padding: 10px;
     margin-bottom: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #ced4da; /* Light border color */
     border-radius: 5px;
     width: 48%;
 }
 
 input[type="text"]:focus, input[type="password"]:focus, select:focus {
-    border-color: #007bff;
+    border-color: #007bff; /* Primary color */
     outline: none;
 }
 
 button {
-    background-color: #28a745;
+    background-color: #007bff; /* Primary color */
     color: white;
     border: none;
     cursor: pointer;
@@ -72,7 +72,7 @@ button {
 }
 
 button:hover {
-    background-color: #218838;
+    background-color: #0056b3; /* Darker primary color */
 }
 
 /* Specific styles for the action buttons */
@@ -86,17 +86,17 @@ button:hover {
 }
 
 .updateBtn {
-    background-color: #ffc107;
+    background-color: #ffc107; /* Warning color */
 }
 
 .deleteBtn {
-    background-color: #dc3545;
+    background-color: #dc3545; /* Danger color */
 }
 
 .updateBtn:hover {
-    background-color: #e0a800;
+    background-color: #e0a800; /* Darker warning color */
 }
 
 .deleteBtn:hover {
-    background-color: #c82333;
+    background-color: #c82333; /* Darker danger color */
 }
