@@ -57,23 +57,29 @@
 <div class="container text-center">
     <!-- Add some space between buttons -->
     <div class="my-3"></div>
-    
-   
     <button class="btn btn-secondary" onclick="location.href='/closecam'">
-      Stop Exam
+        Stop Exam
     </button>
-   <!-- Add the question paper here -->
-<div class="question-paper">
-    <h2>Question Paper</h2>
+    
+    <!-- Check if the student is not involved in malpractice -->
+    {% if student.malpractice == False %}
 
-    <form id="addQuestionForm" method="POST" action="/submit_answers/{{ rollno }}">
-        {% for question in questions %}
-        <p>{{ question.question }}</p>
-        <input type="text" name="answer" placeholder="Answer" required>
-        {% endfor %}
-        <button type="submit">Submit Answer</button>
-    </form>
-</div>
+        <div class="question-paper">
+            <h2>Question Paper</h2>
 
+            <form id="addQuestionForm" method="POST" action="/submit_answers/{{ rollno }}">
+                {% for question in questions %}
+                <p>{{ question.question }}</p>
+                <input type="text" name="answer" placeholder="Answer" required>
+                {% endfor %}
+                <button type="submit">Submit Answer</button>
+            </form>
+        </div>
+    {% else %}
+        <!-- Display a message if the student is involved in malpractice -->
+        <div class="alert alert-danger" role="alert">
+            You have been flagged for malpractice and cannot take the exam.
+        </div>
+    {% endif %}
 </div>
 {% endblock %}

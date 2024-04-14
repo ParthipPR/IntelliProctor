@@ -47,8 +47,8 @@ def stu_login():
         if student:
             if password == student.password:
                 # Password is correct, redirect to exam page
-                opencam(rollno,questions)
-                return render_template('Exampage.html', rollno = rollno, questions = questions)
+                opencam(rollno,questions,student)
+                return render_template('Exampage.html', rollno=rollno, questions=questions, student=student)
             else:
                 # Password is incorrect, flash error message and redirect back to login page
                 flash("Incorrect password. Please try again.", "error")
@@ -123,7 +123,7 @@ def update(rollno):
 
 process = None
 
-def opencam(rollno,questions):
+def opencam(rollno,questions,student):
     global process
     print("Opening camera...")
     if process is None or process.poll() is not None:
@@ -131,7 +131,7 @@ def opencam(rollno,questions):
         print("Camera opened successfully")
     else:
         print("Camera is already open")
-    return render_template('Exampage.html', rollno = rollno, questions = questions)
+    
 
 @app.route("/closecam", methods=['GET'])
 def closecam():
