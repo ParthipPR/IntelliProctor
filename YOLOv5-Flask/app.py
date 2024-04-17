@@ -195,6 +195,23 @@ def submit_answers(rollno):
         return render_template("login_improved.html")
     else:
         return jsonify({"error": "Student not found."}), 404
+
+def check_malpractice_status(rollno):
+    # Query the database for the student with the given roll number
+    student = studentdb.query.filter_by(rollno=rollno).first()
+
+    if student:
+        return student.malpractice
+    else:
+        return False
+
+@app.route('/check_malpractice/<int:rollno>')
+def check_malpractice(rollno):
+    # Assuming you have a function to check malpractice status for the given roll number
+    malpractice_status = check_malpractice_status(rollno)
+    return jsonify({'malpractice': malpractice_status})
+
+
         
 if __name__ == "__main__":
     app.run(debug = False)  
